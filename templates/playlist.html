@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="jumbotron">
+ 
+  <h1>{{ playlist.name }}!</h1>
+  <div class="col-sm-2 col-6">
+    {% if playlist.image_url %}
+    <img src="{{ playlist.image_url }}"
+         class="img-fluid">
+    {% else %}
+    <img src="https://images.macrumors.com/t/hi1_a2IdFGRGMsJ0x31SdD_IcRk=/1600x/article-new/2018/05/apple-music-note.jpg"
+    alt="{{ playlist.name }}"
+    class="img-fluid">
+    {% endif %}
+  </div>
+  {% if playlist.description %}
+  <p class="lead">{{ playlist.description }}</p>
+  {% endif %}
+<form>
+  <button class="btn btn-danger btn-sm"
+          formaction="/playlists/{{ playlist.id }}/delete"
+          formmethod="POST">Delete
+  </button>
+</form>
+</div>
+
+
+<div class="text-danger">
+  {% for songs in playlist.songs %}
+  <div class="col-sm-e col-6">
+    <ul>
+      <li>{{songs.title}}</li>
+    </ul>
+  </div>
+  {% endfor %}
+</div>
+
+<p>
+  <a class="btn btn-primary" href="/playlists/{{ playlist.id }}/add-song">
+    Add Song To Playlist
+  </a>
+</p>
+
+{% endblock %}
